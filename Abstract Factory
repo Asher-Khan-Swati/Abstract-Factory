@@ -1,0 +1,80 @@
+
+public interface Shape {
+    void draw();
+}
+
+
+public class Rectangle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing Rectangle");
+    }
+}
+
+
+public class Square implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing Square");
+}
+}
+
+
+public class RoundedRectangle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing RoundedRectangle");
+    }
+}
+
+public class RoundedSquare implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing RoundedSquare");
+    }
+}
+
+
+public abstract class AbstractFactory {
+    public abstract Shape getShape();
+}
+
+
+public class ShapeFactory extends AbstractFactory {
+    @Override
+    public Shape getShape() {
+        return null;
+    }
+}
+
+public class RoundedShapeFactory extends AbstractFactory {
+    @Override
+    public Shape getShape() {
+        return new RoundedSquare();
+    }
+}
+
+
+public class FactoryProducer {
+    public static AbstractFactory getFactory(String choice) {
+        if (choice.equalsIgnoreCase("SHAPE")) {
+            return new ShapeFactory();
+        } else if (choice.equalsIgnoreCase("ROUNDED_SHAPE")) {
+            return new RoundedShapeFactory();
+        }
+        return null;
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        AbstractFactory shapeFactory = FactoryProducer.getFactory("SHAPE");
+        Shape shape1 = shapeFactory.getShape();
+        shape1.draw();
+
+        AbstractFactory roundedShapeFactory = FactoryProducer.getFactory("ROUNDED_SHAPE");
+        Shape shape2 = roundedShapeFactory.getShape();
+        shape2.draw();
+    }
+}
